@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./dist/main.js",
-    "dev": "nodemon",
+    "dev": "tsx watch src/main.ts",
     "tsc": "tsc",
     "lint": "eslint ./src/**",
     "lint:fix": "eslint ./src/** --fix",
@@ -30,9 +30,8 @@
     "eslint": "^10.0.3",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
-    "nodemon": "^3.1.14",
     "prettier": "^3.8.1",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.57.1"
   }
