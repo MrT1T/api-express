@@ -1,0 +1,36 @@
+{
+  "name": "api-express-js",
+  "version": "1.0.0",
+  "description": "API",
+  "license": "ISC",
+  "author": "mrFint",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./dist/main.js",
+    "tsc": "tsc",
+    "lint": "eslint ./src/**",
+    "lint:fix": "eslint ./src/** --fix",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "inversify": "^8.1.0",
+    "reflect-metadata": "^0.2.2",
+    "tslog": "^4.10.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.4.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
+    "@typescript-eslint/parser": "^8.57.1",
+    "eslint": "^10.0.3",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.1"
+  }
+}
