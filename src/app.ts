@@ -1,4 +1,4 @@
-import express, { Express } from 'express';
+import express, { Express, json } from 'express';
 import { Server } from 'node:http';
 import { injectable, inject } from 'inversify';
 
@@ -24,6 +24,10 @@ export class App {
 		this.port = 8000;
 	}
 
+	useMiddleware() {
+		this.app.use(json());
+	}
+
 	useRoutes() {
 		this.app.use('/users', this.userController.router);
 	}
@@ -33,6 +37,7 @@ export class App {
 	}
 
 	public async init() {
+		this.useMiddleware();
 		this.useRoutes();
 		this.useExceptionFilters();
 		this.server = this.app.listen(this.port, () => {
