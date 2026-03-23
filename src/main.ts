@@ -7,10 +7,14 @@ import { UsersController } from './users/users.controller.js';
 import { ILoggerService } from './logger/logger.interface.js';
 import { TYPES } from './types.js';
 import { IExceptionFilter } from './errors/exception.filter.interface.js';
+import { UsersService } from './users/users.service.js';
+import type { IUsersService } from './users/users.service.interface.js';
+import type { IUsersController } from './users/users.controller.interface.js';
 
 export const appBindings = new ContainerModule((options: ContainerModuleLoadOptions) => {
 	options.bind<ILoggerService>(TYPES.ILoggerService).to(LoggerService);
-	options.bind<UsersController>(TYPES.UsersController).to(UsersController);
+	options.bind<IUsersController>(TYPES.UsersController).to(UsersController);
+	options.bind<IUsersService>(TYPES.UsersService).to(UsersService);
 	options.bind<IExceptionFilter>(TYPES.ExceptionFilter).to(ExceptionFilter);
 	options.bind<App>(TYPES.Application).to(App);
 });

@@ -5,15 +5,20 @@ import { HttpError } from '../errors/http-error.class.js';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../types.js';
 
-import { ILoggerService } from '../logger/logger.interface.js';
 import { IUsersController } from './users.controller.interface.js';
 import { UserRegisterDto } from './dto/user-register.dto.js';
 import { UserLoginDto } from './dto/user-login.dto.js';
-import { User } from './user.entity.js';
+
+import { IUsersService } from './users.service.interface.js';
+import { ILoggerService } from '../logger/logger.interface.js';
+import e from 'express';
 
 @injectable()
 export class UsersController extends BaseController implements IUsersController {
-	constructor(@inject(TYPES.ILoggerService) private loggerService: ILoggerService) {
+	constructor(
+		@inject(TYPES.ILoggerService) private loggerService: ILoggerService,
+		@inject(TYPES.UsersService) private usersService: IUsersService,
+	) {
 		super(loggerService);
 		this.bindRoutes([
 			{ path: '/login', method: 'post', func: this.login },
@@ -30,8 +35,10 @@ export class UsersController extends BaseController implements IUsersController 
 
 	async register({ body }: Request<{}, {}, UserRegisterDto>, res: Response, next: NextFunction) {
 		console.log(body);
-		const newUser = new User(body.email, body.name);
-		await newUser.setPassword(body.password);
-		return this.ok(res, newUser);
+		const result = await this.usersService.createUser(body);
+		if (!result) {
+			return next(new HttpError(422, 'User already exists', 'Register'));
+		}
+		return this.ok(res, { email: result.email });
 	}
 }
