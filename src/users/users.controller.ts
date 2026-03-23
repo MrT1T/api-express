@@ -8,10 +8,10 @@ import { TYPES } from '../types.js';
 import { IUsersController } from './users.controller.interface.js';
 import { UserRegisterDto } from './dto/user-register.dto.js';
 import { UserLoginDto } from './dto/user-login.dto.js';
+import { ValidateMiddleware } from '../common/validate.middleware.js';
 
-import { IUsersService } from './users.service.interface.js';
-import { ILoggerService } from '../logger/logger.interface.js';
-import e from 'express';
+import type { IUsersService } from './users.service.interface.js';
+import type { ILoggerService } from '../logger/logger.interface.js';
 
 @injectable()
 export class UsersController extends BaseController implements IUsersController {
@@ -22,7 +22,12 @@ export class UsersController extends BaseController implements IUsersController 
 		super(loggerService);
 		this.bindRoutes([
 			{ path: '/login', method: 'post', func: this.login },
-			{ path: '/register', method: 'post', func: this.register },
+			{
+				path: '/register',
+				method: 'post',
+				func: this.register,
+				middlewares: [new ValidateMiddleware(UserRegisterDto)],
+			},
 		]);
 	}
 
